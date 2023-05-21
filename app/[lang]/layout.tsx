@@ -14,6 +14,7 @@ import { getDictionary } from '@/lib/get-dictionary'
 import { Locale } from '@/config/i18n-config'
 import { Dictionary } from '@/types'
 import Head from 'next/head'
+import { Analytics } from '@/components/analytics'
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -108,6 +109,7 @@ export default async function RootLayout({
           {/* <Toaster /> */}
           {/* </ThemeProvider> */}
           <SiteFooter dictionary={dictionary.footer} />
+          <Analytics />
         </Providers>
 
 
