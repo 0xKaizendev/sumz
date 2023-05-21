@@ -1,0 +1,15 @@
+{
+  "banner":{
+    "text":"Résumez vos articles avec",
+    "paragraph":"Simplifiez votre lecture avec Summize, un résumeur d'articles open source qui transforme de longs articles en résumés clairs et concis"
+  },
+"demo":{
+    "place_holder":"Enter un lien",
+    "button_children":"Résumez"
+},
+  "footer":{
+    "built_by":"Développé par",
+    "hosted_on":"Hébergé sur",
+    "source_code":"Le code source est disponible sur"
+  }
+}
