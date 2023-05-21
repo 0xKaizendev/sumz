@@ -1,7 +1,7 @@
 import '../globals.css'
 import { Inter as FontSans } from "next/font/google"
 import localFont from "next/font/local"
- 
+
 import { MainNav } from "@/components/main-nav"
 import { siteConfig } from "@/config/site"
 import { i18n } from '@/config/i18n-config'
@@ -13,6 +13,7 @@ import { Metadata } from 'next'
 import { getDictionary } from '@/lib/get-dictionary'
 import { Locale } from '@/config/i18n-config'
 import { Dictionary } from '@/types'
+import Head from 'next/head'
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -57,28 +58,28 @@ export const metadata: Metadata = {
     creator: "@0xZales",
   },
   icons: {
-    icon: ["../brain.svg"],
-    shortcut: ["/favicon-16x16.png"],
-    apple: ["/apple-touch-icon.png"],
+    icon: "/icon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
 
-  // manifest: `${siteConfig.url}/site.webmanifest`,
+  manifest: `${siteConfig.url}/site.webmanifest`,
 }
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 const fontHeading = localFont({
-  src:  "../../assets/fonts/CalSans-SemiBold.woff2",
+  src: "../../public/assets/fonts/CalSans-SemiBold.woff2",
   variable: "--font-heading",
 })
-export default  async function RootLayout({
+export default async function RootLayout({
   children, params
 }: {
   children: React.ReactNode, params: { lang: Locale }
 }) {
 
-  const dictionary:Dictionary = await getDictionary(params.lang)
+  const dictionary: Dictionary = await getDictionary(params.lang)
   return (
     <html lang={params.lang}>
 
