@@ -56,11 +56,11 @@ export const metadata: Metadata = {
     images: [`${siteConfig.url}/og.jpg`],
     creator: "@0xZales",
   },
-  // icons: {
-  //   icon: ["../favicon.ico"],
-  //   shortcut: ["/favicon-16x16.png"],
-  //   apple: ["/apple-touch-icon.png"],
-  // },
+  icons: {
+    icon: ["../brain.svg"],
+    shortcut: ["/favicon-16x16.png"],
+    apple: ["/apple-touch-icon.png"],
+  },
 
   // manifest: `${siteConfig.url}/site.webmanifest`,
 }
