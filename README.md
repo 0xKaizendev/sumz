@@ -1,23 +1,24 @@
-# Internationalized Routing
+# Sumz
 
-Next.js doesn't support internationalized routing in `app` directory out of the box. But you can easily implement it yourself. This example shows how to implement internationalized routing on the Edge.
+![`Sumz Logo`](https://sumz-openai.vercel.app/en/icon.ico)
 
-## Deploy your own
+Sumz is an open source project that aims to simplify the reading of articles by summarizing them in a clear and concise way. It is an automatic summary extraction tool for online articles.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/app-dir-i18n-routing)
+## Main features
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/app-dir-i18n-routing&project-name=app-dir-i18n-routing&repository-name=app-dir-i18n-routing)
+- *Article Summary*: Sumz uses automatic abstract extraction techniques to reduce the length of articles and transform them into clear and concise summaries. This allows users to quickly browse through the main content of an article and decide if they want to read it in full.
+- *Ease of use*: Sumz offers a user-friendly user interface that allows users to submit articles online and instantly get an abstract. No technical skills are required to use the tool.
+- *Open source*: Sumz is an open source project, which means that the source code is available for free and can be modified and improved by the developer community.
 
-## How to use
+## How to use Sumz
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+1. Go to [`Sumz`](https://sumz-openai.vercel.app/).
+2. Copy the link of the article you want to summarize.
+3. Paste the link into the Sumz input field.
+4. Click on the "Summarize" button.
+5. Wait a few seconds while Sumz analyzes the article and generates a summary.
+6. Check out the generated summary and use it to decide if you want to read the full article.
 
-```bash
-npx create-next-app --example app-dir-i18n-routing i18n-app
-# or
-yarn create next-app --example app-dir-i18n-routing i18n-app
-# or
-pnpm create next-app --example app-dir-i18n-routing i18n-app
-```
+## Contribution
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+If you want to contribute to Sumz, you can consult the official GitHub repository at the following address: [`Github Repo` ](https://github.com/0xZales/sumz ). Any contribution is welcome!
