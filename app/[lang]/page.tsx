@@ -16,7 +16,7 @@ export default async function Home({ params: { lang },
       <h2 className='mt-5 text-lg text-muted-foreground sm:text-xl text-center max-w-2xl px-4 md:px-0'>
       {dictionary['banner'].paragraph}
       </h2>
-      <Demo dictionary={dictionary.demo}/>
+      <Demo dictionary={dictionary.demo} lang={lang}/>
     </section>
   )
 }

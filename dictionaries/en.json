@@ -5,7 +5,8 @@
   },
   "demo":{
     "place_holder":"Enter a url",
-    "button_children":"Summarize"
+    "button_children":"Summarize",
+    "translate":"Traduire"
 },
   "footer":{
     "built_by":"Built by",

@@ -25,11 +25,11 @@ export type Dictionary = {
     text: string;
     paragraph: string;
   };
-demo:{
+  demo: {
     place_holder: string;
-  
+    translate: string;
     button_children: string;
-}
+  };
   footer: {
     built_by: string;
     hosted_on: string;
