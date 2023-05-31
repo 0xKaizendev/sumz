@@ -23,18 +23,20 @@ export default function Demo({ dictionary, lang }: DemoProps) {
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery()
   const [article, setArticle] = useState<Article>({ url: "", summary: "", lang, translatedSummary: "" })
   const [articles, setArticles] = useState<typeof article[]>([])
-  const [isTranstlating, SetisTranslating] = useState<boolean>(false)
+  const [isTranstlating, setisTranslating] = useState<boolean>(false)
 
   const handleTransaction = async (article: Article) => {
     if (article.lang === lang) {
       setArticle(article)
     } else {
       try {
-        SetisTranslating(true)
+        setisTranslating(true)
         const translation = await translateArticle(article.summary, article.lang, lang)
         setArticle({ ...article, translatedSummary: translation })
+        setisTranslating(false)
       } catch (error) {
-
+        setisTranslating(false)
+        console.log(error)
       }
     }
   }
