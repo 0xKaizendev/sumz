@@ -41,7 +41,7 @@ export default function Demo({ dictionary, lang }: DemoProps) {
         setisTranslating(false)
       } catch (error) {
         setisTranslating(false)
-        console.log(error)
+        throw new Error("Error translating")
       }
     }
   }
