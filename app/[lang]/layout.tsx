@@ -1,7 +1,7 @@
 import '../globals.css'
 import { Inter as FontSans } from "next/font/google"
 import localFont from "next/font/local"
-
+import { Toaster } from '@/components/ui/toast'
 import { MainNav } from "@/components/main-nav"
 import { siteConfig } from "@/config/site"
 import { i18n } from '@/config/i18n-config'
@@ -106,7 +106,7 @@ export default async function RootLayout({
 
 
           {/* <Analytics /> */}
-          {/* <Toaster /> */}
+          <Toaster position='bottom-right'/>
           {/* </ThemeProvider> */}
           <SiteFooter dictionary={dictionary.footer} />
           <Analytics />
