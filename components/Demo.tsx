@@ -4,14 +4,19 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { toast } from "./ui/toast";
 import { translateArticle } from '@/lib/utils';
-import { Copy, Link2Icon, Loader } from 'lucide-react';
+import { Copy, Link2Icon, } from 'lucide-react';
 import { useLazyGetSummaryQuery } from '@/services/article';
 import { Locale } from '@/config/i18n-config';
+import loader from '@/public/loader.png'
+import Image from 'next/image';
 interface DemoProps {
   dictionary: {
     place_holder: string;
     button_children: string;
-    translate: string
+    copy: string
+    copy_message: string
+    link: string
+    resume: string
   }
   lang: 'en' | 'fr'
 };
@@ -71,6 +76,7 @@ export default function Demo({ dictionary, lang }: DemoProps) {
             {dictionary.button_children}
           </Button>
         </form>
+
         <div className='flex flex-col gap-1  overflow-y-auto mt-4'>
           {
             articles.map((article, index) => (<div key={`article-${index}`} onClick={() => handleTransaction(article)} className='p-3 flex justify-start items-center flex-row bg-background border  gap-3 rounded-lg cursor-pointer'>
@@ -79,8 +85,8 @@ export default function Demo({ dictionary, lang }: DemoProps) {
                   navigator.clipboard.writeText(article.url)
 
                   toast({
-                    title: "Copie",
-                    message: "Lien copié avec succès ",
+                    title: `${dictionary.copy}`,
+                    message: `${dictionary.link} ${dictionary.copy_message}`,
                     type: "success"
                   })
                 }} />
@@ -95,7 +101,7 @@ export default function Demo({ dictionary, lang }: DemoProps) {
       </div>
       <div className='my-10 max-w-full flex justify-center items-center'>
         {
-          isFetching || isTranstlating ? (<Loader className='w-4 animate-spin' />) : error ? <p className='font-bold text-center'>{lang === 'fr' ? "Impossible de récuperer le contenu de l'url" : "Unable to get thr url content"} </p> : (article.summary && <div className='flex flex-col gap-3'>
+          isFetching || isTranstlating ? (<Image src={loader} alt='loader' />) : error ? <p className='font-bold text-center'>{lang === 'fr' ? "Impossible de récuperer le contenu de l'url" : "Unable to get the url content"} </p> : (article.summary && <div className='flex flex-col gap-3'>
             <div className='flex justify-between'>
 
               <h2 className='font-bold text-xl'>
@@ -107,8 +113,8 @@ export default function Demo({ dictionary, lang }: DemoProps) {
                 navigator.clipboard.writeText(article.summary)
 
                 toast({
-                  title: "Copie",
-                  message: "Resumé copié avec succès ",
+                  title: `${dictionary.copy}`,
+                  message: `${dictionary.resume} ${dictionary.copy_message}`,
                   type: "success"
                 })
               }} />

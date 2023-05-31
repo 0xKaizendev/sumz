@@ -6,7 +6,10 @@
   "demo":{
     "place_holder":"Enter a url",
     "button_children":"Summarize",
-    "translate":"Traduire"
+    "copy":"Copy",
+    "copy_message":"successfully copied",
+    "link":"Link",
+    "resume":"Resume"
 },
   "footer":{
     "built_by":"Built by",

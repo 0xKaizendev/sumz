@@ -27,8 +27,11 @@ export type Dictionary = {
   };
   demo: {
     place_holder: string;
-    translate: string;
     button_children: string;
+    copy:string
+    copy_message:string
+    link:string
+    resume:string
   };
   footer: {
     built_by: string;
