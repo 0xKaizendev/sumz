@@ -1,10 +1,7 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import axios from "axios";
-import * as cheerio from 'cheerio'
 import { Locale } from "@/config/i18n-config";
 import translate from "translate";
-import {parse} from 'node-html-parser'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
