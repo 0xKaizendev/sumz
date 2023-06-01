@@ -4,10 +4,10 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { toast } from "./ui/toast";
 import { translateArticle } from '@/lib/utils';
-import { Copy, Link2Icon, } from 'lucide-react';
+import { Copy, Link2Icon, Loader2Icon} from 'lucide-react';
 import { useLazyGetSummaryQuery } from '@/services/article';
 import { Locale } from '@/config/i18n-config';
-import loader from '@/public/loader.png'
+import loader from '@/public/loader.gif'
 import Image from 'next/image';
 interface DemoProps {
   dictionary: {
@@ -28,7 +28,7 @@ export default function Demo({ dictionary, lang }: DemoProps) {
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery()
   const [article, setArticle] = useState<Article>({ url: "", summary: "", lang, translatedSummary: "" })
   const [articles, setArticles] = useState<typeof article[]>([])
-  const [isTranstlating, setisTranslating] = useState<boolean>(true)
+  const [isTranstlating, setisTranslating] = useState<boolean>(false)
 
   const handleTransaction = async (article: Article) => {
     if (article.lang === lang) {
@@ -101,7 +101,7 @@ export default function Demo({ dictionary, lang }: DemoProps) {
       </div>
       <div className='my-10 max-w-full flex justify-center items-center'>
         {
-          isFetching || isTranstlating ? (<Image src={loader} alt='loader' />) : error ? <p className='font-bold text-center'>{lang === 'fr' ? "Impossible de récuperer le contenu de l'url" : "Unable to get the url content"} </p> : (article.summary && <div className='flex flex-col gap-3'>
+          isFetching || isTranstlating ? (<Loader2Icon className='animate-spin w-10 h-10 text-orange-500'/>) : error ? <p className='font-bold text-center'>{lang === 'fr' ? "Impossible de récuperer le contenu de l'url" : "Unable to get the url content"} </p> : (article.summary && <div className='flex flex-col gap-3'>
             <div className='flex justify-between'>
 
               <h2 className='font-bold text-xl'>
