@@ -1,7 +1,7 @@
 {
   "banner":{
     "text":"Resume your articles with",
-    "paragraph":"Simplify your reading with Sumz, an open-source article summarizer that transforms lengthy articles into clear and concise summaries"
+    "paragraph":"Simplify your reading with Sumz, an open-source tool that transforms lengthy articles into clear and concise summaries"
   },
   "demo":{
     "place_holder":"Enter a url",
