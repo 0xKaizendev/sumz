@@ -4,11 +4,11 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { toast } from "./ui/toast";
 import { translateArticle } from '@/lib/utils';
-import { Copy, Link2Icon, Loader2Icon} from 'lucide-react';
+import { Copy, Link2Icon, Loader2Icon } from 'lucide-react';
 import { useLazyGetSummaryQuery } from '@/services/article';
 import { Locale } from '@/config/i18n-config';
-import loader from '@/public/loader.gif'
 import Image from 'next/image';
+import { wordCount, getURLContent } from '@/lib/utils';
 interface DemoProps {
   dictionary: {
     place_holder: string;
@@ -22,15 +22,20 @@ interface DemoProps {
 };
 
 interface Article {
-  url: string, summary: string, lang: Locale, translatedSummary: string
+  url: string,
+  summary: string,
+  lang: Locale,
+  translatedSummary: string
+  originalLength?: number
+  summaryLength?: number
 }
 export default function Demo({ dictionary, lang }: DemoProps) {
   const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery()
-  const [article, setArticle] = useState<Article>({ url: "", summary: "", lang, translatedSummary: "" })
+  const [article, setArticle] = useState<Article>({ url: "", summary: "", lang, translatedSummary: "", originalLength: 0, summaryLength: 0 })
   const [articles, setArticles] = useState<typeof article[]>([])
   const [isTranstlating, setisTranslating] = useState<boolean>(false)
 
-  const handleTransaction = async (article: Article) => {
+  const handleTranslation = async (article: Article) => {
     if (article.lang === lang) {
       setArticle(article)
     } else {
@@ -48,14 +53,27 @@ export default function Demo({ dictionary, lang }: DemoProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { data } = await getSummary({ articleUrl: article.url, lang: lang, })
-    if (data?.summary) {
-      const newArticle = {
-        ...article, summary: data.summary, lang
+    // get the article with the same url if it exists
+    const existingArticle = articles.find((art) => art.url === article.url)
+    if (existingArticle) {
+      console.log("Article already exists in the list of articles")
+      setArticle(existingArticle)
+      return
+    }
+    // get the content of the url
+    const urlContent = await getURLContent({ url: article.url })
+    if (urlContent) {
+      const articlength = wordCount(urlContent as string)
+      const { data } = await getSummary({ articleUrl: article.url, lang: lang, })
+      if (data?.summary) {
+        const summaryLength = wordCount(data.summary)
+        const newArticle = {
+          ...article, summary: data.summary, lang, originalLength: articlength, summaryLength
+        }
+        const updatedArticles = [newArticle, ...articles]
+        setArticle(newArticle)
+        localStorage.setItem('articles', JSON.stringify(updatedArticles))
       }
-      const updatedArticles = [newArticle, ...articles]
-      setArticle(newArticle)
-      localStorage.setItem('articles', JSON.stringify(updatedArticles))
     }
   }
   useEffect(() => {
@@ -79,7 +97,7 @@ export default function Demo({ dictionary, lang }: DemoProps) {
 
         <div className='flex flex-col gap-1  overflow-y-auto mt-4'>
           {
-            articles.map((article, index) => (<div key={`article-${index}`} onClick={() => handleTransaction(article)} className='p-3 flex justify-start items-center flex-row bg-background border  gap-3 rounded-lg cursor-pointer'>
+            articles.map((article, index) => (<div key={`article-${index}`} onClick={() => handleTranslation(article)} className='p-3 flex justify-start items-center flex-row bg-background border  gap-3 rounded-lg cursor-pointer'>
               <div className='w-7 h-7 rounded-full bg-muted shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer'>
                 <Copy className=' w-3 object-contain cursor-pointer' onClick={() => {
                   navigator.clipboard.writeText(article.url)
@@ -101,11 +119,19 @@ export default function Demo({ dictionary, lang }: DemoProps) {
       </div>
       <div className='my-10 max-w-full flex justify-center items-center'>
         {
-          isFetching || isTranstlating ? (<Loader2Icon className='animate-spin w-10 h-10 text-orange-500'/>) : error ? <p className='font-bold text-center'>{lang === 'fr' ? "Impossible de récuperer le contenu de l'url" : "Unable to get the url content"} </p> : (article.summary && <div className='flex flex-col gap-3'>
+          isFetching || isTranstlating ? (<Loader2Icon className='animate-spin w-10 h-10 text-orange-500' />) : error ? <p className='font-bold text-center'>{lang === 'fr' ? "Impossible de récuperer le contenu de l'url" : "Unable to get the url content"} </p> : (article.summary && <div className='flex flex-col gap-3'>
             <div className='flex justify-between'>
 
               <h2 className='font-bold text-xl'>
                 <span className='text-orange-500'>{lang === 'en' ? "Summary" : "Résumé"}</span>
+                <p>
+                  {lang === 'en' ? "Original Article Length: " : "Longueur de l'article original: "}
+                  {article.originalLength} {lang === 'en' ? "words" : "mots"}
+                </p>
+                <p>
+                  {lang === 'en' ? "Summary Length: " : "Longueur du résumé: "}
+                  {article.summaryLength} {lang === 'en' ? "words" : "mots"}
+                </p>
               </h2>
             </div>
             <div className='rounded-xl border bg-muted text-accent-foreground shadow-md backdrop-blur p-4'>
